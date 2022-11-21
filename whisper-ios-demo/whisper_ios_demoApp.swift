@@ -26,18 +26,23 @@ struct whisper_ios_demoApp: App {
         let outputURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("output-\(UUID()).wav")
         print(outputURL)
 
+        func cb(_ progress: UnsafePointer<Int8>?) -> Int32 {
+            let str = String(cString: progress!)
+            print(str)
+            return 0
+        }
+
         let converter = FormatConverter(inputURL: inputURL, outputURL: outputURL, options: options)
         converter.start { error in
             if error == nil {
                 DispatchQueue.global(qos: .userInitiated).async {
                     let modelURL = Bundle.main.url(forResource: "ggml-small.en", withExtension: "bin", subdirectory: "")
-                    read_wav(modelURL!.absoluteURL.path, outputURL.absoluteURL.path)
+                    read_wav(modelURL!.absoluteURL.path, outputURL.absoluteURL.path, cb)
 
                     DispatchQueue.main.async {
                         print("This is run on the main queue, after the previous code in outer block")
                     }
                 }
-
             }
         }
     }

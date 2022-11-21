@@ -9,16 +9,22 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-//        let modelPath = "\(Bundle.main.resourcePath!)/ggml-small.en.bin"
-//        let wavPath = "\(Bundle.main.resourcePath!)/aragorn.wav"
+        let modelPath = "\(Bundle.main.resourcePath!)/ggml-small.en.bin"
+        let wavPath = "\(Bundle.main.resourcePath!)/aragorn.wav"
+
+        func cb(_ progress: UnsafePointer<Int8>?) -> Int32 {
+            let str = String(cString: progress!)
+            print(str)
+            return 0
+        }
+
         return VStack {
             Image(systemName: "globe")
                 .imageScale(.large)
                 .foregroundColor(.accentColor)
             Text("Hello, world!")
             Button("Transcribe") {
-                print("Tap")
-//                read_wav(modelPath, wavPath)
+                read_wav(modelPath, wavPath, cb)
             }
         }
         .padding()

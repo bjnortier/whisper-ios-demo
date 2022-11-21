@@ -43,12 +43,15 @@ struct whisper_params {
     bool no_timestamps        = false;
 
     std::string language  = "en";
-    std::string model     = "ggml-small.en.bin";
+    std::string model     = "resources/ggml-small.en.bin";
 
     std::vector<std::string> fname_inp = {};
 };
 
-int read_wav(const char* model_filename, const char* wav_filename) {
+
+int read_wav(const char* model_filename, const char* wav_filename, int (*progress_callback)(const char*)) {
+    progress_callback("Initializing Whisper...");
+
     whisper_params params;
     params.model = model_filename;
     struct whisper_context * ctx = whisper_init(params.model.c_str());
@@ -59,24 +62,20 @@ int read_wav(const char* model_filename, const char* wav_filename) {
         fprintf(stderr, "failed to open WAV file - check your input\n");
         return 3;
     }
-
     if (wav.channels != 1 && wav.channels != 2) {
         fprintf(stderr, "WAV file must be mono or stereo\n");
         return 4;
     }
-
     if (wav.sampleRate != WHISPER_SAMPLE_RATE) {
         fprintf(stderr, "WAV file must be 16 kHz\n");
         return 5;
     }
-
-
     if (wav.bitsPerSample != 16) {
         fprintf(stderr, "WAV file must be 16-bit\n");
         return 6;
     }
 
-    int n = wav.totalPCMFrameCount;
+    drwav_uint64 n = wav.totalPCMFrameCount;
 
     std::vector<int16_t> pcm16;
     pcm16.resize(n*wav.channels);
@@ -94,7 +93,10 @@ int read_wav(const char* model_filename, const char* wav_filename) {
             pcmf32[i] = float(pcm16[2*i] + pcm16[2*i + 1])/65536.0f;
         }
     }
-    fprintf(stdout, "opened WAV. size: %lu\n", pcmf32.size());
+
+    char buffer[512];
+    snprintf(buffer, 512, "opened WAV. size: %lu", pcmf32.size());
+    progress_callback(buffer);
 
 
     // print some info about the processing
@@ -129,12 +131,14 @@ int read_wav(const char* model_filename, const char* wav_filename) {
         wparams.n_threads            = params.n_threads;
         wparams.offset_ms            = params.offset_ms;
 
-        fprintf(stderr, "processing...");
+        snprintf(buffer, 512, "processing audio...");
+        progress_callback(buffer);
         if (whisper_full(ctx, wparams, pcmf32.data(), pcmf32.size()) != 0) {
             fprintf(stderr, "%s: failed to process audio\n", wav_filename);
             return 7;
         }
-        fprintf(stderr, "done processing.");
+        snprintf(buffer, 512, "audio processed");
+        progress_callback(buffer);
 
         // print result
         if (!wparams.print_realtime) {
@@ -145,19 +149,21 @@ int read_wav(const char* model_filename, const char* wav_filename) {
                 const char * text = whisper_full_get_segment_text(ctx, i);
 
                 if (params.no_timestamps) {
-                    printf("%s", text);
-                    fflush(stdout);
+                    progress_callback(text);
+//                    printf("%s", text);
+//                    fflush(stdout);
                 } else {
                     const int64_t t0 = whisper_full_get_segment_t0(ctx, i);
                     const int64_t t1 = whisper_full_get_segment_t1(ctx, i);
 
-                    printf("[%s --> %s]  %s\n", to_timestamp(t0).c_str(), to_timestamp(t1).c_str(), text);
+                    snprintf(buffer, 512, "[%s --> %s]  %s\n", to_timestamp(t0).c_str(), to_timestamp(t1).c_str(), text);
+                    progress_callback(buffer);
                 }
             }
         }
 
         printf("\n");
     }
-
+    whisper_free(ctx);
     return 0;
 }
