@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		17B96247292B9B5C00D73CA9 /* ggml-small.en.bin in Resources */ = {isa = PBXBuildFile; fileRef = 17B96246292B9B5C00D73CA9 /* ggml-small.en.bin */; };
+		17B96249292B9BE300D73CA9 /* ggml-tiny.bin in Resources */ = {isa = PBXBuildFile; fileRef = 17B96248292B9BE300D73CA9 /* ggml-tiny.bin */; };
 		17CE6B7228F6BC96007FBA5D /* whisper_ios_demoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17CE6B7128F6BC96007FBA5D /* whisper_ios_demoApp.swift */; };
 		17CE6B7428F6BC96007FBA5D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17CE6B7328F6BC96007FBA5D /* ContentView.swift */; };
 		17CE6B7628F6BC97007FBA5D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 17CE6B7528F6BC97007FBA5D /* Assets.xcassets */; };
@@ -17,8 +19,6 @@
 		17CE6BA528F6BDA6007FBA5D /* whisper_utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 17CE6BA028F6BDA6007FBA5D /* whisper_utils.cpp */; };
 		17CE6BA628F6BDA6007FBA5D /* whisper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 17CE6BA128F6BDA6007FBA5D /* whisper.cpp */; };
 		17CE6BA728F6BDA6007FBA5D /* ggml.c in Sources */ = {isa = PBXBuildFile; fileRef = 17CE6BA428F6BDA6007FBA5D /* ggml.c */; };
-		17CE6BAA28F6BDF7007FBA5D /* ggml-small.en.bin in Resources */ = {isa = PBXBuildFile; fileRef = 17CE6BA928F6BDF7007FBA5D /* ggml-small.en.bin */; };
-		17CE6BAC28F6BE00007FBA5D /* scent.wav in Resources */ = {isa = PBXBuildFile; fileRef = 17CE6BAB28F6BE00007FBA5D /* scent.wav */; };
 		17CE6BB128F6D423007FBA5D /* aragorn.wav in Resources */ = {isa = PBXBuildFile; fileRef = 17CE6BB028F6D423007FBA5D /* aragorn.wav */; };
 		17CE6C4528F8128B007FBA5D /* AudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = 17CE6C4428F8128B007FBA5D /* AudioKit */; };
 /* End PBXBuildFile section */
@@ -54,6 +54,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		17B96246292B9B5C00D73CA9 /* ggml-small.en.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "ggml-small.en.bin"; sourceTree = "<group>"; };
+		17B96248292B9BE300D73CA9 /* ggml-tiny.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "ggml-tiny.bin"; sourceTree = "<group>"; };
 		17CE6B6E28F6BC96007FBA5D /* whisper-ios-demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "whisper-ios-demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		17CE6B7128F6BC96007FBA5D /* whisper_ios_demoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = whisper_ios_demoApp.swift; sourceTree = "<group>"; };
 		17CE6B7328F6BC96007FBA5D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -72,8 +74,6 @@
 		17CE6BA128F6BDA6007FBA5D /* whisper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = whisper.cpp; sourceTree = "<group>"; };
 		17CE6BA328F6BDA6007FBA5D /* whisper.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = whisper.hpp; sourceTree = "<group>"; };
 		17CE6BA428F6BDA6007FBA5D /* ggml.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ggml.c; sourceTree = "<group>"; };
-		17CE6BA928F6BDF7007FBA5D /* ggml-small.en.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "ggml-small.en.bin"; sourceTree = "<group>"; };
-		17CE6BAB28F6BE00007FBA5D /* scent.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = scent.wav; sourceTree = "<group>"; };
 		17CE6BB028F6D423007FBA5D /* aragorn.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = aragorn.wav; sourceTree = "<group>"; };
 		17CE6BB328F6F2A2007FBA5D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		17CE6BBA28F6F431007FBA5D /* UniformTypeIdentifiers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UniformTypeIdentifiers.framework; path = System/Library/Frameworks/UniformTypeIdentifiers.framework; sourceTree = SDKROOT; };
@@ -184,8 +184,8 @@
 			isa = PBXGroup;
 			children = (
 				17CE6BB028F6D423007FBA5D /* aragorn.wav */,
-				17CE6BAB28F6BE00007FBA5D /* scent.wav */,
-				17CE6BA928F6BDF7007FBA5D /* ggml-small.en.bin */,
+				17B96246292B9B5C00D73CA9 /* ggml-small.en.bin */,
+				17B96248292B9BE300D73CA9 /* ggml-tiny.bin */,
 			);
 			path = resources;
 			sourceTree = "<group>";
@@ -311,10 +311,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				17CE6B7928F6BC97007FBA5D /* Preview Assets.xcassets in Resources */,
+				17B96247292B9B5C00D73CA9 /* ggml-small.en.bin in Resources */,
 				17CE6B7628F6BC97007FBA5D /* Assets.xcassets in Resources */,
+				17B96249292B9BE300D73CA9 /* ggml-tiny.bin in Resources */,
 				17CE6BB128F6D423007FBA5D /* aragorn.wav in Resources */,
-				17CE6BAC28F6BE00007FBA5D /* scent.wav in Resources */,
-				17CE6BAA28F6BDF7007FBA5D /* ggml-small.en.bin in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

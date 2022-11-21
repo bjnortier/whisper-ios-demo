@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        let modelPath = "\(Bundle.main.resourcePath!)/ggml-small.en.bin"
+        let modelPath = "\(Bundle.main.resourcePath!)/ggml-tiny.bin"
         let wavPath = "\(Bundle.main.resourcePath!)/aragorn.wav"
 
         func cb(_ progress: UnsafePointer<Int8>?) -> Int32 {

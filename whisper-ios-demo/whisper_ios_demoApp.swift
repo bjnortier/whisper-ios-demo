@@ -36,7 +36,7 @@ struct whisper_ios_demoApp: App {
         converter.start { error in
             if error == nil {
                 DispatchQueue.global(qos: .userInitiated).async {
-                    let modelURL = Bundle.main.url(forResource: "ggml-small.en", withExtension: "bin", subdirectory: "")
+                    let modelURL = Bundle.main.url(forResource: "ggml-tiny", withExtension: "bin", subdirectory: "")
                     read_wav(modelURL!.absoluteURL.path, outputURL.absoluteURL.path, cb)
 
                     DispatchQueue.main.async {
